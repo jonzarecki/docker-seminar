@@ -1,5 +1,6 @@
 FROM yanivomc/alpine-oraclejdk8:slim
-WORKDIR /code
-COPY ./spring-music.jar /code/spring-music.jar
+WORKDIR /data
+COPY ./spring-music.jar /data
+
 EXPOSE 8080:8080
-CMD java -jar -Dspring.profiles.active=mysql /code/spring-music.jar
+CMD java -jar -Dspring.profiles.active=mysql /data/spring-music.jar

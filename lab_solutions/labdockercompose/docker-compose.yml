@@ -1,26 +1,27 @@
 #NOTE THAT THERE ARE ERRORS IN THE YML FILE FOR YOU TO FIX
 version: '3' # Docker-compose yml version for docker compose builder
 services: 
-  web: 
+  web:
    build: ./roles/web/
    depends_on:
-     - db_mysql     
-   ports: 
+     - db_mysql
+   ports:
      - 8080:8080
-   volumes: 
-       - ./artifactsa:/code
+   volumes:
+       - ./artifacts:/code
    networks: # Define netwroks per service / role
      - app_layer
+     - db_layer
    entrypoint: ## this wil overide the CMD / entrypoint in our dockerfile
-     - java 
-     - -jar 
-     - -Dspring.profiles.active=mysql 
-     - /code/spring-music.jar
+     - java
+     - -jar
+     - -Dspring.profiles.active=mysql
+     - /data/spring-music.jar
      
   
   
   db_mysql:
-    image: wangxian/alpine-mysql
+    image: yanivomc/spring-mysql
     environment: # env variables 
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=music
